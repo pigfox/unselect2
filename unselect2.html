@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Un <select> 2</title>
+<meta charset="utf-8">
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<style>
+html,body{height:100%;margin:0px;font-family:Verdana;}
+#container{margin:auto;width:100%;}
+div.relative{position:relative;width:400px;margin:auto;} 
+div.absolute{position:absolute;top:34px;left:0;width:402px;z-index:2;margin-left:-2px;}
+#citydd, #occupationdd, #educationdd{display:none;background-color:#ffffff;}
+.text{color:#000000;}
+.padding{padding:5px;}
+.border{border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
+.hover{background-color:#eeeeee;}
+.display{color:#000000;margin-bottom:-12px;display:inline;}
+.select{width:388px;}
+.cursor{cursor:pointer;}
+.gradient{background: #1e5799; /* Old browsers */
+background: -moz-linear-gradient(top, #1e5799 0%, #207cca 3%, #2989d8 6%, #7db9e8 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #1e5799 0%,#207cca 3%,#2989d8 6%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #1e5799 0%,#207cca 3%,#2989d8 6%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */}
+.shadow{-webkit-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);}
+.redgradient{/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff1a00+0,ff1a00+100 */
+background: #ff1a00; /* Old browsers */
+background: -moz-linear-gradient(top, #ff1a00 0%, #ff1a00 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #ff1a00 0%,#ff1a00 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #ff1a00 0%,#ff1a00 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff1a00', endColorstr='#ff1a00',GradientType=0 ); /* IE6-9 */}
+</style>
+<script type="text/javascript">
+	$( document ).ready(function() {
+	
+		$('#cityselect').on('click', function() {
+			$('#citydd').toggle();
+			$('#displayed_city').hide();
+			$('#displayed_city').html('');
+			$('#selected_city_id').val('');			
+		});
+				
+		$('.city').mouseover(function() {	
+			$(this).addClass('hover');
+		});
+		
+		$('.city').mouseout(function() {
+			$(this).removeClass('hover');			
+		});
+
+		$('.city').on('click', function() {
+			 int = this.id.slice(4);//splice on "city"
+			 target = '#c' + int;
+			 val = $(target).val();
+			 $('#selected_city_id').val(val);
+			 city = '#city' + int;
+			 $('#citydd').hide();
+			 $('#selected_city').show();
+			 display = $(city).html();
+			 $('#cityselect').html(display);		
+			$('#cityselect').removeClass('redgradient');
+			$('#cityselect').addClass('gradient');
+		});
+		
+		/********************************************************/
+		
+		$('#occupationselect').on('click', function() {
+			$('#occupationdd').toggle();
+			$('#displayed_occupation').hide();
+			$('#displayed_occupation').html('');
+			$('#selected_occupation_id').val('');			
+		});
+				
+		$('.occupation').mouseover(function() {	
+			$(this).addClass('hover');
+		});
+		
+		$('.occupation').mouseout(function() {
+			$(this).removeClass('hover');			
+		});
+
+		$('.occupation').on('click', function() {
+			 int = this.id.slice(10);//splice on "occupation"
+			 target = '#o' + int;
+			 val = $(target).val();
+			 $('#selected_occupation_id').val(val);
+			 occupation = '#occupation' + int;
+			 $('#occupationdd').hide();
+			 display = $(occupation).html();
+			 $('#occupationselect').html(display);		
+			$('#occupationselect').removeClass('redgradient');
+			$('#occupationselect').addClass('gradient');
+		});
+		
+		/********************************************************/	
+		
+		$('#educationselect').on('click', function() {
+			$('#educationdd').toggle();
+			$('#displayed_education').hide();
+			$('#displayed_education').html('');
+			$('#selected_education_id').val('');
+		});
+				
+		$('.education').mouseover(function() {	
+			$(this).addClass('hover');
+		});
+		
+		$('.education').mouseout(function() {
+			$(this).removeClass('hover');			
+		});
+
+		$('.education').on('click', function() {
+			 int = this.id.slice(9);//splice on "education"
+			 target = '#e' + int;
+			 val = $(target).val();
+			 $('#selected_education_id').val(val);
+			 education = '#education' + int;
+			 $('#educationdd').hide();
+			 display = $(education).html();
+			 $('#educationselect').html(display);		
+			$('#educationselect').removeClass('redgradient');
+			$('#educationselect').addClass('gradient');
+		});
+		
+		$('#submit').on('click', function() {
+		
+			var selected_city_id = $('#selected_city_id').val();
+			if(selected_city_id == ''){
+				$('#cityselect').removeClass('gradient');
+				$('#cityselect').addClass('redgradient');
+				return false;
+			}
+			
+			var selected_occupation_id = $('#selected_occupation_id').val();
+			if(selected_occupation_id == ''){
+				$('#occupationselect').removeClass('gradient');
+				$('#occupationselect').addClass('redgradient');
+				return false;
+			}
+			
+			var selected_education_id = $('#selected_education_id').val();
+			if(selected_education_id == ''){
+				$('#educationselect').removeClass('gradient');
+				$('#educationselect').addClass('redgradient');
+				return false;
+			}
+		
+			$('#form').submit();
+		});
+	});
+	
+</script>
+</head>
+<body>
+	<div id="container">
+		<form action="unselect2.html" method="post" id="form">
+			<!-- Begin City -->
+			<div class="relative">			
+				<div id="cityselect" class="select border padding cursor gradient shadow">Select City</div>
+				<div class="absolute" id="citydd">
+					<div id="city1" class="city text border padding cursor">Greater Metropolitan Los Angeles</div>
+					<div><input type="hidden" value="1" id="c1"></div>
+					<div id="city2" class="city text border padding cursor">New York</div>
+					<div><input type="hidden" value="2" id="c2"></div>
+					<div id="city3" class="city text border padding cursor">Chicago</div>
+					<div><input type="hidden" value="3" id="c3"></div>
+					<div id="city4" class="city text border padding cursor">Miami</div>
+					<div><input type="hidden" value="4" id="c4"></div>			
+					<div id="city5" class="city text border padding cursor">Seattle</div>
+					<div><input type="hidden" value="5" id="c5"></div>		
+				</div>
+				<div><input type="hidden" value="" name="selected_city_id" id="selected_city_id" class="city text border padding cursor"></div>
+			</div>	
+			<!-- End City -->
+			<br/>
+			<!-- Begin Occupation -->
+			<div class="relative">	
+				<div id="occupationselect" class="select border padding cursor gradient shadow">Select Occupation</div>
+				<div class="absolute" id="occupationdd">
+					<div id="occupation1" class="occupation text border padding cursor">Engineering</div>
+					<div><input type="hidden" value="1" id="o1"></div>
+					<div id="occupation2" class="occupation text border padding cursor">Healtcare</div>
+					<div><input type="hidden" value="2" id="o2"></div>
+					<div id="occupation3" class="occupation text border padding cursor">Finance</div>
+					<div><input type="hidden" value="3" id="o3"></div>
+					<div id="occupation4" class="occupation text border padding cursor">Clerical</div>
+					<div><input type="hidden" value="4" id="o4"></div>			
+					<div id="occupation5" class="occupation text border padding cursor">Legal</div>
+					<div><input type="hidden" value="5" id="o5"></div>	
+				</div>
+				<div><input type="hidden" value="" name="selected_occupation_id" id="selected_occupation_id" class="occupation text border padding cursor"></div>			
+			</div>	
+			<!-- End Occupation -->
+			<br/>
+			<!-- Begin Education -->
+			<div class="relative">	
+				<div id="educationselect" class="select border padding cursor gradient shadow">Select Education</div>
+				<div class="absolute" id="educationdd">
+					<div id="education1" class="education text border padding cursor">High School</div>
+					<div><input type="hidden" value="1" id="e1"></div>
+					<div id="education2" class="education text border padding cursor">Associate Degree</div>
+					<div><input type="hidden" value="2" id="e2"></div>
+					<div id="education3" class="education text border padding cursor">Bachelors Degree</div>
+					<div><input type="hidden" value="3" id="e3"></div>
+					<div id="education4" class="education text border padding cursor">Masters Degree</div>
+					<div><input type="hidden" value="4" id="e4"></div>			
+					<div id="education5" class="education text border padding cursor">Ph.D</div>
+					<div><input type="hidden" value="5" id="e5"></div>	
+				</div>
+				<div><input type="hidden" value="" name="selected_education_id" id="selected_education_id" class="education text border padding cursor"></div>			
+			</div>	
+			<!-- End Education -->
+			<br/>
+			<div class="relative">
+				<div id="submit" class="select border padding cursor gradient shadow">Submit</div>
+			</div>	
+
+		</form>
+	</div>
+</body>
+</html>
